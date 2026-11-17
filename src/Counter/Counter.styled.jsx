@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const CounterBox = styled.section`
       width: 100%;
-      max-width: 800px;
+      max-width: 520px;
       padding: 28px 24px 32px;
       text-align: center;
       color: var(--text);
       background: var(--card);
+      border: 1px solid #fff;
       border-radius: 6px;
 `;
 
@@ -53,55 +54,25 @@ export const CounterButton = styled.button`
 `;
 
 export const MinusButton = styled(CounterButton)`
-  color: #dc4c46;
-  border-color: rgba(220, 76, 70, 0.45);
+    color: #2f9e6f;
+  border-color: rgba(47, 158, 111, 0.45);
 
-    &:hover {
-        background: #dc4c46;
+    &:hover,
+    &:focus-visible {
+        background: #2f9e6f;
         color: #fff;
     }
+ 
 `;
 
 export const PlusButton = styled(CounterButton)`
-  color: #2f9e6f;
-  border-color: rgba(47, 158, 111, 0.45);
+    color: #dc4c46;
+    border-color: rgba(220, 76, 70, 0.45);
 
-  &:hover,
-  &:focus-visible {
-    background: #2f9e6f;
-    color: #fff;
-  }
-`;
-
-
-/*
-
+    &:hover,
+    &:focus-visible {
+        background: #dc4c46;
+        color: #fff;
+    }
   
-
-    .counter__btn--plus {
-      color: var(--green);
-      border-color: rgba(47, 158, 111, 0.45);
-    }
-
-    .counter__btn--minus {
-      color: var(--red);
-      border-color: rgba(220, 76, 70, 0.45);
-    }
-
-    .counter__btn--plus:hover,
-    .counter__btn--plus:focus-visible {
-      background: var(--green);
-      color: #fff;
-    }
-
-    .counter__btn--minus:hover,
-    .counter__btn--minus:focus-visible {
-      background: var(--red);
-      color: #fff;
-    }
-
-    .counter__btn:focus-visible {
-      outline: 2px solid #fff;
-      outline-offset: 3px;
-    }
-*/
+`;
