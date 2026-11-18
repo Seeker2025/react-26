@@ -24,7 +24,7 @@ function reducer(prevState, action){
 
 export const Counter = () => {
 
-    const[total, dispatch] = useReducer(reducer, 0);
+    const [total, dispatch] = useReducer(reducer, 0);
     const handleClickMinus = () => dispatch({state: 'minus'});
     const handleClickPlus = () => dispatch({state: 'plus'});
 
