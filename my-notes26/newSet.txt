@@ -1,0 +1,206 @@
+Set — это встроенная структура данных в JavaScript, которая позволяет хранить
+только уникальные значения.
+
+Главная особенность: в Set не может быть двух одинаковых элементов.
+
+Давай разберём подробно.
+1. Создание Set
+Для создания используется конструктор new Set():
+const numbers = new Set();
+
+numbers.add(1);
+numbers.add(2);
+numbers.add(3);
+
+console.log(numbers);
+// Set(3) {1, 2, 3}
+
+
+Можно сразу передать массив:
+const numbers = new Set([1, 2, 2, 3, 3, 4]);
+
+console.log(numbers);
+// Set(4) {1, 2, 3, 4}
+
+
+Обрати внимание: повторяющиеся числа автоматически удаляются.
+Как Set удаляет дубликаты
+1
+элемент
+
+2
+элемент
+
+2
+дубль
+
+3
+элемент
+
+3
+дубль
+
+4
+элемент
+
+
+
+1
+
+2
+
+3
+
+4
+
+
+В Set остаются только уникальные значения.
+
+2. Основные методы Set
+У Set есть несколько важных методов.
+add() — добавить элемент
+const fruits = new Set();
+
+fruits.add('Apple');
+fruits.add('Orange');
+fruits.add('Banana');
+
+fruits.add('Apple'); // Не добавится повторно
+
+console.log(fruits);
+// Set(3) {'Apple', 'Orange', 'Banana'}
+
+
+delete() — удалить элемент
+const fruits = new Set(['Apple', 'Orange', 'Banana']);
+
+fruits.delete('Orange');
+
+console.log(fruits);
+// Set(2) {'Apple', 'Banana'}
+
+
+has() — проверить наличие элемента
+const fruits = new Set(['Apple', 'Orange', 'Banana']);
+
+console.log(fruits.has('Apple'));  // true
+console.log(fruits.has('Mango'));  // false
+
+
+Очень полезный метод, когда нужно проверить, есть ли значение в коллекции.
+clear() — удалить все элементы
+const numbers = new Set([1, 2, 3]);
+
+numbers.clear();
+
+console.log(numbers);
+// Set(0) {}
+
+
+size — узнать количество элементов
+Обрати внимание: это не метод, а свойство.
+const numbers = new Set([1, 2, 2, 3, 3]);
+
+console.log(numbers.size); // 3
+
+
+3. Как перебрать Set?
+Можно использовать for...of:
+const numbers = new Set([10, 20, 30]);
+
+for (const number of numbers) {
+  console.log(number);
+}
+
+
+Результат:
+10
+20
+30
+
+
+Также можно использовать forEach():
+numbers.forEach(number => {
+  console.log(number);
+});
+
+
+4. Как преобразовать Set в массив?
+Мы уже рассматривали два способа.
+
+Способ № 1 — Array.from():
+const numbers = new Set([1, 2, 3]);
+
+const arr = Array.from(numbers);
+
+console.log(arr); // [1, 2, 3]
+
+
+Способ № 2 — Spread operator:
+const numbers = new Set([1, 2, 3]);
+
+const arr = [...numbers];
+
+console.log(arr); // [1, 2, 3]
+
+
+В React такой приём особенно полезен, когда нужно получить массив уникальных
+значений для отображения через .map().
+5. Практический пример: удаление дубликатов из массива
+Представь, что API вернул такой массив:
+const numbers = [1, 2, 3, 2, 4, 1, 5, 3];
+
+const uniqueNumbers = [...new Set(numbers)];
+
+console.log(uniqueNumbers);
+
+// [1, 2, 3, 4, 5]
+
+
+Разберём эту строку:
+[...new Set(numbers)]
+
+
+Она состоит из трёх действий:
+1. new Set(numbers) — создаёт коллекцию уникальных значений.
+2. ... — извлекает элементы коллекции.
+3. [ ] — помещает эти элементы в новый массив.
+6. Важная особенность: объекты в Set
+Здесь есть интересный нюанс.
+const users = new Set();
+
+users.add({ name: 'Igor' });
+users.add({ name: 'Igor' });
+
+console.log(users.size); // 2
+
+
+Почему получилось 2, хотя объекты одинаковые?
+
+Потому что это два разных объекта в памяти. JavaScript сравнивает объекты
+по ссылке, а не по содержимому.
+
+А вот так:
+const user = { name: 'Igor' };
+
+const users = new Set();
+
+users.add(user);
+users.add(user);
+
+console.log(users.size); // 1
+
+
+Здесь обе записи ссылаются на один и тот же объект.
+
+7. Set и Array — в чём разница?
+Возможность	Array	Set
+Дубликаты	Разрешены	Не допускаются
+Индексы	    Есть	    Нет
+push()	    Да	        Нет
+add()	    Нет	        Да
+delete()	Нет	        Да
+has()	    Нет	        Да
+length	    Да	        Нет
+size	    Нет	        Да
+forEach()	Да	        Да
