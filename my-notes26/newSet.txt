@@ -53,7 +53,6 @@ console.log(numbers);
 
 4
 
-
 В Set остаются только уникальные значения.
 
 2. Основные методы Set
@@ -70,7 +69,6 @@ fruits.add('Apple'); // Не добавится повторно
 console.log(fruits);
 // Set(3) {'Apple', 'Orange', 'Banana'}
 
-
 delete() — удалить элемент
 const fruits = new Set(['Apple', 'Orange', 'Banana']);
 
@@ -86,7 +84,6 @@ const fruits = new Set(['Apple', 'Orange', 'Banana']);
 console.log(fruits.has('Apple'));  // true
 console.log(fruits.has('Mango'));  // false
 
-
 Очень полезный метод, когда нужно проверить, есть ли значение в коллекции.
 clear() — удалить все элементы
 const numbers = new Set([1, 2, 3]);
@@ -95,7 +92,6 @@ numbers.clear();
 
 console.log(numbers);
 // Set(0) {}
-
 
 size — узнать количество элементов
 Обрати внимание: это не метод, а свойство.
@@ -190,17 +186,91 @@ users.add(user);
 
 console.log(users.size); // 1
 
-
 Здесь обе записи ссылаются на один и тот же объект.
 
 7. Set и Array — в чём разница?
-Возможность	Array	Set
-Дубликаты	Разрешены	Не допускаются
-Индексы	    Есть	    Нет
-push()	    Да	        Нет
-add()	    Нет	        Да
-delete()	Нет	        Да
-has()	    Нет	        Да
-length	    Да	        Нет
-size	    Нет	        Да
-forEach()	Да	        Да
+Возможность	  Array       Set
+Дубликаты	    Разрешены	  Не допускаются
+Индексы	      Есть	      Нет
+push()	      Да	        Нет
+add()	        Нет	        Да
+delete()	    Нет	        Да
+has()	        Нет	        Да
+length	      Да	        Нет
+size	        Нет	        Да
+forEach()	    Да	        Да
+
+
+
+Set не имеет индексов. Если возникнет необходимость достать одни элемент из Set,
+то как это сделать?
+Правильно! У Set действительно нет индексов, как у обычного массива.
+Поэтому обратиться к элементу через set[0] нельзя.
+
+Но получить отдельный элемент можно несколькими способами.
+
+1. Преобразовать Set в массив
+Самый простой способ, если нужен доступ по индексу:
+
+const set = new Set(['apple', 'banana', 'orange']);
+
+const arr = Array.from(set);
+
+console.log(arr[0]); // 'apple'
+console.log(arr[1]); // 'banana'
+
+Можно использовать и spread:
+
+const arr = [...set];
+
+console.log(arr[1]); // 'banana'
+
+2. Использовать .values() и .next()
+У Set есть метод .values(), который возвращает итератор.
+
+const set = new Set(['apple', 'banana', 'orange']);
+
+const iterator = set.values();
+
+console.log(iterator.next().value); // 'apple'
+console.log(iterator.next().value); // 'banana'
+
+Каждый вызов .next() перемещает итератор к следующему элементу.
+
+3. Использовать for...of
+Если нужно найти конкретный элемент по условию:
+
+const set = new Set([10, 20, 30, 40]);
+
+for (const item of set) {
+  if (item > 20) {
+    console.log(item); // 30
+    break;
+  }
+}
+
+Что лучше запомнить?
+Задача
+
+Способ
+
+Получить элемент по порядковому номеру
+
+Array.from(set)[index]
+
+Получить следующий элемент
+
+set.values().next().value
+
+Найти элемент по условию
+
+for...of
+
+Проверить наличие элемента
+
+set.has(value)
+
+Важный момент: Set сохраняет порядок добавления элементов. Поэтому при
+преобразовании в массив порядок элементов не меняется.
+
+Например, [...set][1] вернёт второй добавленный элемент.
